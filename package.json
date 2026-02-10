@@ -1,15 +1,12 @@
 {
-  "name": "lib-starter",
+  "name": "file-seek",
   "version": "0.0.0",
   "packageManager": "pnpm@9.3.0",
-  "description": "一个基于pnpm typescript monorepo/multirepo的lib快速启动仓库模板",
+  "description": "与文件查找有关",
   "scripts": {
-    "lib-starter:init-ci": "tsx scripts/lib-starter-init-ci.ts",
-    "pkg:init": "tsx scripts/pkg-init.ts",
-    "pkg:new": "tsx scripts/pkg-new.ts",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "prepare": "husky install && npm run pkg:init",
+    "prepare": "husky install",
     "husky-msg-init": "husky add .husky/pre-commit \"npx lint-staged --allow-empty \"$1\"\"&husky add .husky/commit-msg \"npx commitlint --edit \"$1\"\"",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "check:deps": "ncu",
@@ -18,10 +15,7 @@
     "check:eslint": "eslint .",
     "check:prettier": "prettier ./ --check",
     "check:all": "run-p check:ts check:eslint check:prettier",
-    "typedoc:build": "typedoc --plugin @mxssfd/typedoc-theme --theme my-theme",
-    "typedoc:deploy": "gh-pages -d docs-html",
-    "build": "tsx scripts/build.ts -t",
-    "release": "tsx scripts/release.ts"
+    "find": "tsx src/findFile.ts"
   },
   "lint-staged": {
     "*.{json,html,md,yaml}": [
@@ -36,26 +30,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mengxinssfd/lib-starter.git"
+    "url": "git+https://github.com/mengxinssfd/file-seek.git"
   },
   "keywords": [
-    "lib",
-    "starter"
+    "file",
+    "seek"
   ],
-  "author": "dyh_a",
+  "author": "dyh_w",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mengxinssfd/lib-starter/issues"
+    "url": "https://github.com/mengxinssfd/file-seek/issues"
   },
-  "homepage": "https://github.com/mengxinssfd/lib-starter#readme",
+  "homepage": "https://github.com/mengxinssfd/file-seek#readme",
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
-    "@microsoft/api-extractor": "^7.47.0",
-    "@mxssfd/typedoc-theme": "^1.1.3",
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
     "@tool-pack/basic": "^0.9.1",
     "@types/fs-extra": "^11.0.4",
     "@types/jest": "^29.5.12",
@@ -68,7 +57,7 @@
     "conventional-changelog-cli": "^5.0.0",
     "core-js": "^3.37.1",
     "enquirer": "^2.4.1",
-    "eslint": "^9.5.0",
+    "eslint": "9.26.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsdoc": "^48.2.12",
     "eslint-plugin-perfectionist": "^2.11.0",
@@ -85,22 +74,12 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^3.3.2",
     "rimraf": "^5.0.7",
-    "rollup": "^4.18.0",
-    "rollup-plugin-polyfill-node": "^0.13.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.36.0",
     "sass": "^1.77.5",
     "semver": "^7.6.2",
     "ts-jest": "^29.1.4",
     "tslib": "^2.6.3",
     "tsx": "^4.15.5",
-    "typedoc": "^0.25.13",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.13.0"
-  },
-  "files": [
-    "dist",
-    "CHANGELOG.md",
-    "LICENSE"
-  ]
+  }
 }
