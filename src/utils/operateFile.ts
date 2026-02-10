@@ -10,8 +10,8 @@ import { prompt } from 'enquirer';
  */
 export function operateFile(files: string[], removeSelect: boolean = false): void {
   enum Options {
-    EXPLORER = '在文件夹打开所有',
-    OPEN_ALL = '打开所有',
+    EXPLORER = '在文件夹打开全部',
+    OPEN_ALL = '打开全部',
     SELECT = '选择文件',
     EXIT = '退出',
   }

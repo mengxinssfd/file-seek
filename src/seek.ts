@@ -1,53 +1,24 @@
-/* eslint-disable no-console */
-import { operateFile, seek } from './utils';
-import chalk from 'chalk';
+import { runSeek } from './utils';
 
 // 命令： tsx src/seek.ts "文件夹1,文件夹2" 查找目标 深度查找(默认Y开启，输入任意为否)
 
-const [, , folders$, find$, deep$ = 'Y'] = process.argv;
+const [, , folders$, find$ = '', deep$ = 'Y'] = process.argv;
 
 (function () {
-  const deep = deep$ === 'Y';
-  console.log(
-    '-'.repeat(10),
-    '已',
-    deep ? chalk.green('开启') : chalk.red('关闭'),
-    '深度查找',
-    '-'.repeat(10),
-  );
+  runSeek(getFolders(), find$, deep$ === 'Y');
+})();
 
-  if (!folders$) {
-    console.error(chalk.red('缺少文件夹路径'));
-    return;
-  }
+/**
+ * 获取文件夹
+ * @returns {string[]} 文件夹数组
+ */
+function getFolders(): string[] {
+  if (!folders$) throw new Error('缺少文件夹路径');
 
   const folders = folders$
     .split(',')
     .map((v) => v.trim())
     .filter(Boolean);
-  if (!folders.length) {
-    console.error(chalk.red('缺少文件夹路径'));
-    return;
-  }
-
-  if (!find$) {
-    console.error(chalk.red('无搜索内容'));
-    return;
-  }
-
-  console.log('在以下文件夹: ');
-  console.log(chalk.magenta(folders.join('\n')));
-  console.log('搜索：', chalk.cyan(find$));
-  console.log('='.repeat(10), '搜索中...', '='.repeat(10));
-
-  const result = seek(folders, find$, deep);
-  if (!result.length) {
-    console.log('未搜索到目标');
-    return;
-  }
-
-  console.log(chalk.cyan(result.join('\n')));
-  console.log('*'.repeat(10), `搜索到以上${chalk.cyan(result.length)}个结果`, '*'.repeat(10));
-
-  operateFile(result);
-})();
+  if (!folders.length) throw new Error('缺少文件夹路径');
+  return folders;
+}

@@ -106,3 +106,4 @@ dist
 .idea
 docs-html
 temp
+__json__
