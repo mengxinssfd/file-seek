@@ -2,7 +2,7 @@
   "name": "file-seek",
   "version": "0.0.0",
   "packageManager": "pnpm@9.3.0",
-  "description": "与文件查找有关",
+  "description": "文件查找",
   "scripts": {
     "test": "jest",
     "test:cov": "jest --coverage",
@@ -14,8 +14,7 @@
     "check:ts": "tsc --noEmit && npm run check:ts.node",
     "check:eslint": "eslint .",
     "check:prettier": "prettier ./ --check",
-    "check:all": "run-p check:ts check:eslint check:prettier",
-    "find": "tsx src/findFile.ts"
+    "check:all": "run-p check:ts check:eslint check:prettier"
   },
   "lint-staged": {
     "*.{json,html,md,yaml}": [
