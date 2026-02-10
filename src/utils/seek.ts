@@ -14,15 +14,17 @@ export function seek(folders: string[], target: string, deep: boolean): string[]
   const result: string[] = [];
   while (dirs.length) {
     const dir = dirs.shift() as string;
-    try {
-      FS.accessSync(dir, FS.constants.R_OK);
-      const lc = Path.basename(dir).toLowerCase();
-      if (lc.includes(find)) result.push(dir);
-      if (deep && FS.statSync(dir).isDirectory()) {
+    // accessSync根本预判不了readdirSync报错
+    // FS.accessSync(dir, FS.constants.R_OK);
+    const lc = Path.basename(dir).toLowerCase();
+    if (lc.includes(find)) result.push(dir);
+    if (deep && FS.statSync(dir).isDirectory()) {
+      try {
+        // readdirSync读取$RECYCLE.BIN这种文件就会出错
         const ls = FS.readdirSync(dir).map((d) => Path.resolve(dir, d));
         dirs.unshift(...ls);
-      }
-    } catch (e) {}
+      } catch {}
+    }
   }
   return result;
 }
